@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AuGrapher.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+        Height="450" Width="500"
+        x:Class="AuGrapher.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AuGrapher">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Grid RowDefinitions = "Auto, *, Auto">
+        <!-- Title Bar -->
+        <Grid Grid.Row="0" Background="Orange" Height="30" ColumnDefinitions="Auto, *, Auto">
+            <Rectangle Grid.Column="0" Fill="Red" Width="100"></Rectangle>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label FontWeight="Black">Au Price Adjust</Label>    
+            </StackPanel>
+            <Rectangle Grid.Column="2" Fill="Green" Width="75"></Rectangle>
+        </Grid>
+        <!-- Main block -->
+        <Grid Grid.Row="1" ColumnDefinitions="100, *">
+            <!-- Scroll Viewer? Needs to add a new pannel per ticker in db-->
+            <Rectangle Grid.Column="0" Fill="Purple"></Rectangle>
+            <Grid Grid.Column="1" RowDefinitions="50, *">
+                <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,10">
+                    <TextBox Grid.Column="0"
+                        Text="{Binding Ticker, Mode=TwoWay}"
+                        Watermark="Enter a ticker"
+                        Margin="0,0,10,0"/>
+                    <Button Grid.Column="1"
+                        Command="{Binding GraphCommand}"
+                        Content="Graph against gold" />
+                </Grid>
+                <ContentControl Grid.Row="1" IsVisible="{Binding HasChart}">
+                    <lvc:CartesianChart
+                        Series="{Binding Series}"
+                        XAxes="{Binding XAxis}"
+                        YAxes="{Binding YAxis}" />
+                </ContentControl>
+            </Grid>
+        </Grid>
+        <!-- Bottom Bar-->
+        <Grid Grid.Row="2">
+            <Rectangle Fill="Cyan" Height="50"></Rectangle>
+        </Grid>
+    </Grid>
+
+
+</Window>
