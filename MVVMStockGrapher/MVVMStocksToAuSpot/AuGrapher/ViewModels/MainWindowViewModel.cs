@@ -22,7 +22,7 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             if (_ticker != value)
             {
-                _ticker = value.ToUpper();
+                _ticker = value;
                 OnPropertyChanged();
             }
         }

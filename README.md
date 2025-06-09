@@ -1,6 +1,9 @@
 # StockPriceGoldPlot
 Plot the value of a stock against the gold oz spot price
 
-This is an educational program that allows users to compare the value of a stock or currency to a troy ounce of gold.
+Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of Yahoo, Inc.
 
-Run the program from the AuGrapher directory.
+StockPriceGoldPlot is not affiliated, endorsed, or vetted by Yahoo, Inc.
+It's an open-source tool that uses Yahoo's publicly available APIs, and is intended for research and educational purposes.
+
+Run the program through a terminal in the AuGrapher directory.
