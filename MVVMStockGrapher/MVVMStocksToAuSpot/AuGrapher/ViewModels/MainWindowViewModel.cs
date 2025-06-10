@@ -7,8 +7,6 @@ using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using CommunityToolkit.Mvvm.Input;
 using AuGrapher.StockPriceToDb;
-
-
 using AuGrapher.DbReader;
 using System.Linq;
 
@@ -78,8 +76,12 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void LoadChartData()
     {
-        // Insert to DB
-        StockPriceToDb.InsertCsvDataToDb(Ticker);
+        //check if ticker is in db and up to date
+        if (!DbReader.TickerInDb(Ticker) || !DbReader.TickerDataUpToDate(Ticker))
+        {
+            // Insert to DB if not in Db
+            StockPriceToDb.InsertCsvDataToDb(Ticker);
+        }         
 
         var data = DbReader.GetAdjustedStockHistory(Ticker);
 
