@@ -24,6 +24,7 @@ public static class StockPriceToDb
         if (!lines.Any())
         {
             // Handle empty csv or improper ticker
+            // Currently crashes program. Need to handle properly
         }
         else
         {
