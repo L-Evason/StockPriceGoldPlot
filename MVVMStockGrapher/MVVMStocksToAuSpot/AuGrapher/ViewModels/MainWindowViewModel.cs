@@ -81,7 +81,12 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             // Insert to DB if not in Db
             StockPriceToDb.InsertCsvDataToDb(Ticker);
-        }         
+        }
+        if (Ticker.Contains('\\') || Ticker.Contains('/') || Ticker == "") // If ticker is a badendpoint set to AAPL as default
+        {
+           Console.WriteLine("Invalid ticker. Defaulting to AAPL.");
+            Ticker = "AAPL";
+        }
 
         var data = DbReader.GetAdjustedStockHistory(Ticker);
 

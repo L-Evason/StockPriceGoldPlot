@@ -10,12 +10,15 @@ public static class StockPriceToDb
 {
     public static void InsertCsvDataToDb(string ticker)
     {
+        if (ticker.Contains('\\') || ticker.Contains('/') || ticker == "") // If ticker is a badendpoint set to 
+        {
+           Console.WriteLine("Invalid ticker. Defaulting to AAPL.");
+            ticker = "AAPL";
+        }
         // Generate CSV file
-        RunPythonyFinnanceScript.FetchHistoricalData(ticker);
+            RunPythonyFinnanceScript.FetchHistoricalData(ticker);
 
         string csvFilePath = Path.Combine($"{ticker}_monthly_open.csv");
-
-
 
         var lines = File.ReadAllLines(csvFilePath)
             .Skip(1) // Skip the header
@@ -23,8 +26,7 @@ public static class StockPriceToDb
             .ToArray();
         if (!lines.Any())
         {
-            // Handle empty csv or improper ticker
-            // Currently crashes program. Need to handle properly
+            
         }
         else
         {
